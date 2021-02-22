@@ -51,7 +51,7 @@ if (Object.is(NaN, total_seconds) == true) {
         setTimeout( () =>{
             iterator = iterator + 1
             timer.innerHTML = total_seconds - iterator
-            if (timer.innerHTML == 0) {
+            if (timer.innerHTML <= 0) {
                 alert("timer done!")
             }
         }, i * 1000)
