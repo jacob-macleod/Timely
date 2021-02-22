@@ -22,6 +22,15 @@
 <script>
 timer = document.getElementById("time")
 
+function convert_to_hms (seconds) {
+  var days     = Math.floor(seconds / (24*60*60));
+      seconds -= days    * (24*60*60);
+  var hours    = Math.floor(seconds / (60*60));
+      seconds -= hours   * (60*60);
+  var minutes  = Math.floor(seconds / (60));
+      seconds -= minutes * (60);
+  return ((0<days)?(days+" day, "):"")+hours+"h, "+minutes+"m and "+seconds+"s";
+}
 function change_timer (total_seconds, i) {
     timer.innerHTML = total_seconds - i
     console.log(total_seconds + " and is is " + i)
@@ -50,9 +59,11 @@ if (Object.is(NaN, total_seconds) == true) {
     for (i=0;i<total_seconds;i++) {
         setTimeout( () =>{
             iterator = iterator + 1
-            timer.innerHTML = total_seconds - iterator
-            if (timer.innerHTML <= 0) {
-                alert("timer done!")
+            timer.innerHTML = convert_to_hms (total_seconds - iterator)
+            
+            if (iterator >= total_seconds) {
+                var audio = new Audio('https://opengameart.org/sites/default/files/audio_preview/montageAudio-20120704%40194334.mp3.ogg');
+                audio.play();
             }
         }, i * 1000)
     }
