@@ -8,6 +8,11 @@
   <title>Timely</title>
 </head>
 <body>
+<button onclick="window.open('http://localhost:5000/create_account','_self')">Create Account</button>
+<button onclick="window.open('http://localhost:5000/login','_self')">Login</button>
+<br>
+<p id="login_status">Not logged in!</p>
+<br>
 <p id=time>Timely</p>
 <br>
 <form method="post"> 
@@ -20,6 +25,31 @@
 <button id="start_timer" onclick="start_timer()">Start</button>
 </body>
 <script>
+function get_cookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+if ("{{ user }}" != "%noneValue%") {
+    document.cookie = "user_status={{ user }}";
+    document.getElementById("login_status").innerHTML= "{{ user }}"
+} else {
+    if (get_cookie("user_status") != "%noneValue%") {
+        document.getElementById("login_status").innerHTML = get_cookie("user_status")
+    }
+}
+
 timer = document.getElementById("time")
 
 function convert_to_hms (seconds) {

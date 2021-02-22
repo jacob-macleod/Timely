@@ -52,11 +52,13 @@ def append_value(file, value1, value2) :
 
     #Append data to it
     with open(file, "a") as myfile:
-        myfile.write('''
-    },
+        myfile.write('''    },
     {
         "username": "''' + value1 + '''",
-        "pasword": "''' + value2 + '''"
+        "password": "''' + value2 + '''"
     }
-]
-        ''')
+]''')
+
+
+append_value("login_data.json", "jacob", "jacob")
+append_value("login_data.json", "jacob2", "jacob2")
