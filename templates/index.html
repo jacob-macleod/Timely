@@ -11,16 +11,53 @@
 <p id=time>Null (Time taken so far)</p>
 <br>
 <form method="post"> 
-    <input type="text" id="length_input_hours" name="length_input_hours" placeholder="Type here" class="label"> 
+    <input type="text" id="length_input_hours" name="length_input_hours" placeholder="Type here" class="label">
     <label for="title" class="title">Hours,</label> 
     <input type="text" id="length_input_mins" name="length_input_mins" placeholder="Type here" class="label"> 
     <label for="title" class="title">Minutes</label> 
 </form>
 <br>
-<button id="start_timer">Start</button>
+<button id="start_timer" onclick="start_timer()">Start</button>
 </body>
 <script>
+timer = document.getElementById("time")
 
+function change_timer (total_seconds, i) {
+    timer.innerHTML = total_seconds - i
+    console.log(total_seconds + " and is is " + i)
+    setInterval(function(){
+            console.log("Hello")
+    },1000);
+}
+
+
+function start_timer () {
+//Get hours and seconds
+hours = Number(document.getElementById("length_input_hours").value)
+minutes = Number(document.getElementById("length_input_mins").value)
+
+//Convert hours and minutes into seconds and add them
+hours_in_seconds = hours * 60 * 60
+minutes_in_seconds = minutes* 60
+total_seconds = hours_in_seconds + minutes_in_seconds
+
+//Check if we still have a number by the end of it - the user may have entered a string
+if (Object.is(NaN, total_seconds) == true) {
+    alert ("There's been an issue - you need to enter numbers in to the text boxes")
+} else { 
+    iterator = 0
+    //Start the countdown
+    for (i=0;i<total_seconds;i++) {
+        setTimeout( () =>{
+            iterator = iterator + 1
+            timer.innerHTML = total_seconds - iterator
+            if (timer.innerHTML == 0) {
+                alert("timer done!")
+            }
+        }, i * 1000)
+    }
+}
+}
 
 </script>
 </html>
