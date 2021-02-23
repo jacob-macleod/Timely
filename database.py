@@ -1,5 +1,64 @@
 import json
 
+
+#TODO: Change before deployment
+ENCRYPTION_KEY = 5
+letters = ['A', 'a', 'B', 'b', 'C', 'c', 'D', 'd', 'E', 'e', 'F', 'f', 'G', 'g', 'H', 'h', 'I', 'i', 'J', 'j', 'K', 'k', 'L', 'l', 'M', 'm', 'N', 'n', 'O', 'o', 'P', 'p', 'Q', 'q', 'R', 'r', 'S', 's', 'T', 't', 'U', 'u', 'V', 'v', 'W', 'w', 'X', 'x', 'Y', 'y', 'Z', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+
+
+#Uses Ceaser Cipher. Only letters and numbers are encrypted
+def encrypt(string) :
+    encryption = ""
+    global encrypted 
+    encrypted = 0
+
+    #Convert string to array
+    string = [ch for ch in string]
+
+    for i in range(0, len(string)):
+        encrypted = 0
+        for b in range(0, len(letters)) :
+            if string[i] == letters[b] :
+                if b+ENCRYPTION_KEY > len(letters) :
+                    encryption = encryption + letters[b-ENCRYPTION_KEY]
+                else :
+                    encryption = encryption + letters[b+ENCRYPTION_KEY]
+                encrypted = 1
+            b = b + 1
+
+        if encrypted == 0:
+            encryption = encryption + string[i]
+        i = i + 1 
+    return encryption
+
+
+def decrypt(string) :
+    decryption = ""
+    global decrypted 
+    decrypted = 0
+
+    #Convert string to array
+    string = [ch for ch in string]
+
+    for i in range(0, len(string)):
+        decrypted = 0
+        for b in range(0, len(letters)) :
+            if string[i] == letters[b] :
+                if b+ENCRYPTION_KEY > len(letters) :
+                    decryption = decryption + letters[b-ENCRYPTION_KEY]
+                elif b+ENCRYPTION_KEY*2 > len(letters) :
+                    decryption = decryption + letters[b+ENCRYPTION_KEY]
+                else :
+                    decryption = decryption + letters[b-ENCRYPTION_KEY]
+                decrypted = 1
+            b = b + 1
+
+        if decrypted == 0:
+            decryption = decryption + string[i]
+        i = i + 1 
+    return decryption
+    
+
 def change_value(file, index, key, value) :
     with open(file, 'r') as json_file :
         data_r = json.load(json_file)
@@ -59,6 +118,3 @@ def append_value(file, value1, value2) :
     }
 ]''')
 
-
-append_value("login_data.json", "jacob", "jacob")
-append_value("login_data.json", "jacob2", "jacob2")
