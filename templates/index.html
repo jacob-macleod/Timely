@@ -29,7 +29,13 @@
             background: #444343;
             box-shadow: -2px 2px 4px rgba(61, 60, 60, 0.2), 2px -2px 4px rgba(61, 60, 60, 0.2), -2px -2px 4px rgba(75, 74, 74, 0.9), 2px 2px 5px rgba(61, 60, 60, 0.9), inset 1px 1px 2px rgba(75, 74, 74, 0.3), inset -1px -1px 2px rgba(61, 60, 60, 0.5);
             border-radius: 16px;
-    }
+        }
+
+        .time_bars {
+            position: absolute;
+            top: 45vh;
+            left: 60vh;
+        } 
     }
 
     @media screen and (max-width: 1110px) {
@@ -49,9 +55,22 @@
             background: #444343;
             box-shadow: -2px 2px 4px rgba(61, 60, 60, 0.2), 2px -2px 4px rgba(61, 60, 60, 0.2), -2px -2px 4px rgba(75, 74, 74, 0.9), 2px 2px 5px rgba(61, 60, 60, 0.9), inset 1px 1px 2px rgba(75, 74, 74, 0.3), inset -1px -1px 2px rgba(61, 60, 60, 0.5);
             border-radius: 16px;
-    }        
+        }
+
+        .time_bars {
+            position: absolute;
+            top: 45vh;
+            left: 40vh;
+        }        
     }
 
+    @media screen and (max-width: 1000px) {
+        .time_bars {
+            position: absolute;
+            top: 45vh;
+            left: 20vh;
+        } 
+    }
 
     @media screen and (max-width: 600px) {
         .time_div {
@@ -71,7 +90,13 @@
             background: #444343;
             box-shadow: -2px 2px 4px rgba(61, 60, 60, 0.2), 2px -2px 4px rgba(61, 60, 60, 0.2), -2px -2px 4px rgba(75, 74, 74, 0.9), 2px 2px 5px rgba(61, 60, 60, 0.9), inset 1px 1px 2px rgba(75, 74, 74, 0.3), inset -1px -1px 2px rgba(61, 60, 60, 0.5);
             border-radius: 16px;
-    }   
+        }   
+
+        .time_bars {
+            position: absolute;
+            top: 45vh;
+            left: 0vh;
+        } 
     }
 
     .time {
@@ -87,7 +112,44 @@
     .play_icon {
         cursor: pointer;
         width: 10vh;
-        padding-left: 20vh;
+        padding-left: 5vh;
+    }
+
+
+
+    .outer_time_bar {
+        position: absolute;
+        width: 63vh;
+        height: 18px;
+
+        background: linear-gradient(180deg, #444343 0%, rgba(68, 67, 67, 0) 100%);
+        box-shadow: inset 1px 1px 2px rgba(75, 74, 74, 0.3), inset -1px -1px 2px rgba(61, 60, 60, 0.5);
+        filter: drop-shadow(-3px 3px 6px rgba(61, 60, 60, 0.2)), drop-shadow(3px -3px 6px rgba(61, 60, 60, 0.2)), drop-shadow(-3px -3px 6px rgba(75, 74, 74, 0.9)), drop-shadow(3px 3px 8px rgba(61, 60, 60, 0.9));
+        border-radius: 8px;
+    }
+
+    .inner_time_bar {
+        position: absolute;
+        width: 1vh;
+        height: 18px;
+
+        background: linear-gradient(270deg, #6D7CFF 0%, rgba(38, 39, 49, 0.56) 100%);
+        box-shadow: -1px 1px 2px rgba(98, 112, 230, 0.2), 1px -1px 2px rgba(98, 112, 230, 0.2), -1px -1px 2px rgba(120, 136, 255, 0.9), 1px 1px 3px rgba(98, 112, 230, 0.9), inset 1px 1px 2px rgba(120, 136, 255, 0.3), inset -1px -1px 2px rgba(98, 112, 230, 0.5);
+        border-radius: 8px;
+    }
+
+    .user_icon {
+        cursor: pointer;
+        width: 5vh;
+        padding-left: 10vh;
+        padding-bottom: 2vh;
+    }
+
+    .analytics_icon {
+        cursor: pointer;
+        width: 5vh;
+        padding-left: 5vh;
+        padding-bottom: 2vh;
     }
 </style>
   <title>Timely</title>
@@ -108,12 +170,20 @@
         <span class="time">:</span>
         <span id="seconds" class="time" contenteditable="true">0</span>
     </div>
+    <div class="time_bars">
+        <div class="outer_time_bar"></div>
+        <div id="inner_time_bar" class="inner_time_bar"></div>
+    </div>
 </form>
 <div class="bottom_panel">
+    <img src="{{url_for('static', filename='user-6-line.png')}}" id="user_icon" class="user_icon" onclick="window.open('http://localhost:5000/account', '_self')">
     <img src="{{url_for('static', filename='play_icon2.png')}}" id="play_icon" class="play_icon" onclick="start_timer()">
+    <img src="{{url_for('static', filename='Analytics.png')}}" id="analytics_icon" class="analytics_icon" onclick="window.open('http://localhost:5000/analytics', '_self')">
 </div>
 </body>
 <script>
+inner_time_bar = document.getElementById("inner_time_bar")
+
 timer_running = false
 
 function get_cookie(cname) {
@@ -177,6 +247,12 @@ function start_timer () {
             for (i=0;i<total_seconds;i++) {
                 setTimeout( () =>{
                     iterator = iterator + 1
+
+                    //Update progress bar
+                    length = (iterator/total_seconds)*63
+                    inner_time_bar.style.width = length.toString() + "vh"
+
+                    //Update time label
                     time_left = convert_to_hms (total_seconds - iterator)
                     var time_left_arr = (time_left.split("%"));
                     document.getElementById("length_input_hours").innerHTML = time_left_arr[0]

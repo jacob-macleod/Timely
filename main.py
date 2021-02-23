@@ -32,6 +32,11 @@ def create_account() :
     return render_template("create_account.html", user=user_status)
 
 
+@app.route("/account", methods=["GET", "POST"])
+def account () :
+    return render_template("account.html", user=username)
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login () :
     logged_in = False

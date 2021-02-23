@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+     content="width=device-width, initial-scale=1, user-scalable=yes">
+     <link rel="preconnect" href="https://fonts.gstatic.com">
+     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <title>Timely</title>
+</head>
+<body>
+<p id="login_status">Not logged in!</p>
+<br>
+<button onclick="window.open('http://localhost:5000/create_account','_self')">Create Account</button>
+<br>
+<button onclick="window.open('http://localhost:5000/login','_self')">Login</button>
+</body>
+<script>
+function get_cookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for(var i = 0; i <ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+if ("{{ user }}" != "%noneValue%") {
+    document.cookie = "user_status={{ user }}";
+    document.getElementById("login_status").innerHTML= "{{ user }}"
+} else {
+    if (get_cookie("user_status") != "%noneValue%") {
+        document.getElementById("login_status").innerHTML = get_cookie("user_status")
+    }
+}
+</script>
+</html>
