@@ -4,7 +4,39 @@
   <meta charset="utf-8">
   <meta name="viewport"
      content="width=device-width, initial-scale=1, user-scalable=yes">
- 
+<style>
+    body {
+        background: #292A2E;
+    }
+
+    @media screen and (min-width: 600px) {
+        .time_div {
+            position: fixed;
+            top: 30vh;
+            left: 40%;
+        }
+    }
+
+
+    @media screen and (max-width: 600px) {
+        .time_div {
+            position: fixed;
+            top: 30vh;
+            left: 20%;
+        }
+    }
+
+
+    .time {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 96px;
+        line-height: 112px;
+
+        color: #E8F5F8;
+    }
+</style>
   <title>Timely</title>
 </head>
 <body>
@@ -16,15 +48,20 @@
 <p id=time>Timely</p>
 <br>
 <form method="post"> 
-    <input type="text" id="length_input_hours" name="length_input_hours" placeholder="Type here" class="label">
-    <label for="title" class="title">Hours,</label> 
-    <input type="text" id="length_input_mins" name="length_input_mins" placeholder="Type here" class="label"> 
-    <label for="title" class="title">Minutes</label> 
+    <div class="time_div">
+        <span contenteditable="true" id="length_input_hours" class="time">0</span>
+        <span class="time">:</span>
+        <span contenteditable="true" id="length_input_mins" class="time">0</span>
+        <span class="time">:</span>
+        <span id="seconds" class="time" contenteditable="true">0</span>
+    </div>
 </form>
 <br>
 <button id="start_timer" onclick="start_timer()">Start</button>
 </body>
 <script>
+timer_running = false
+
 function get_cookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -53,51 +90,63 @@ if ("{{ user }}" != "%noneValue%") {
 timer = document.getElementById("time")
 
 function convert_to_hms (seconds) {
-  var days     = Math.floor(seconds / (24*60*60));
-      seconds -= days    * (24*60*60);
-  var hours    = Math.floor(seconds / (60*60));
-      seconds -= hours   * (60*60);
-  var minutes  = Math.floor(seconds / (60));
-      seconds -= minutes * (60);
-  return ((0<days)?(days+" day, "):"")+hours+"h, "+minutes+"m and "+seconds+"s";
-}
-function change_timer (total_seconds, i) {
-    timer.innerHTML = total_seconds - i
-    console.log(total_seconds + " and is is " + i)
-    setInterval(function(){
-            console.log("Hello")
-    },1000);
+    var days     = Math.floor(seconds / (24*60*60));
+        seconds -= days    * (24*60*60);
+    var hours    = Math.floor(seconds / (60*60));
+        seconds -= hours   * (60*60);
+    var minutes  = Math.floor(seconds / (60));
+        seconds -= minutes * (60);
+    return hours + "%" + minutes + "%" + seconds
 }
 
 
 function start_timer () {
-//Get hours and seconds
-hours = Number(document.getElementById("length_input_hours").value)
-minutes = Number(document.getElementById("length_input_mins").value)
+    if (timer_running == false) {
+        timer_running = true
+        //Get hours and seconds
+        hours = Number(document.getElementById("length_input_hours").innerHTML)
+        minutes = Number(document.getElementById("length_input_mins").innerHTML)
+        seconds = Number(document.getElementById("seconds").innerHTML)
 
-//Convert hours and minutes into seconds and add them
-hours_in_seconds = hours * 60 * 60
-minutes_in_seconds = minutes* 60
-total_seconds = hours_in_seconds + minutes_in_seconds
+        //Convert hours and minutes into seconds and add them
+        hours_in_seconds = hours * 60 * 60
+        minutes_in_seconds = minutes* 60
+        total_seconds = hours_in_seconds + minutes_in_seconds + seconds
 
-//Check if we still have a number by the end of it - the user may have entered a string
-if (Object.is(NaN, total_seconds) == true) {
-    alert ("There's been an issue - you need to enter numbers in to the text boxes")
-} else { 
-    iterator = 0
-    //Start the countdown
-    for (i=0;i<total_seconds;i++) {
-        setTimeout( () =>{
-            iterator = iterator + 1
-            timer.innerHTML = convert_to_hms (total_seconds - iterator)
-            
-            if (iterator >= total_seconds) {
-                var audio = new Audio('https://opengameart.org/sites/default/files/audio_preview/montageAudio-20120704%40194334.mp3.ogg');
-                audio.play();
+        //Check if we still have a number by the end of it - the user may have entered a string
+        if (Object.is(NaN, total_seconds) == true) {
+            alert ("There's been an issue - you need to enter numbers in to the text boxes")
+        } else { 
+            iterator = 0
+            //Start the countdown
+            for (i=0;i<total_seconds;i++) {
+                setTimeout( () =>{
+                    iterator = iterator + 1
+                    time_left = convert_to_hms (total_seconds - iterator)
+                    var time_left_arr = (time_left.split("%"));
+                    document.getElementById("length_input_hours").innerHTML = time_left_arr[0]
+                    document.getElementById("length_input_mins").innerHTML = time_left_arr[1]
+                    document.getElementById("seconds").innerHTML = time_left_arr[2]
+                    
+                    document.getElementById("length_input_hours").contentEditable = false
+                    document.getElementById("length_input_mins").contentEditable = false
+                    document.getElementById("seconds").contentEditable = false          
+                    
+                    if (iterator >= total_seconds) {
+                        document.getElementById("length_input_hours").contentEditable = true
+                        document.getElementById("length_input_mins").contentEditable = true
+                        document.getElementById("seconds").contentEditable = true
+
+                        timer_running = false
+                        var audio = new Audio('https://opengameart.org/sites/default/files/audio_preview/montageAudio-20120704%40194334.mp3.ogg');
+                        audio.play();
+                    }
+                }, i * 1000)
             }
-        }, i * 1000)
+        }
+    } else {
+        window.open('http://localhost:5000/','_self')
     }
-}
 }
 
 </script>
