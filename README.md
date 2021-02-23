@@ -15,4 +15,4 @@ I'm currently developing the first version, after which I'll provide docker inst
 ## Usage
 I'll add commands to install from docker when I've made the first version, but for now you can clone from github to try it out. 
 
-**IMPORTANT** - The encryption key for the login data is publically shown in database.py, so you should change it. However, even then the encryption isn't that good - it's only a Ceaser Cipher
+**IMPORTANT** - The encryption key for the login data is publically shown in `database.py`, so you should change it. However, even then the encryption isn't that good - it's only a Ceaser Cipher
