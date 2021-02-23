@@ -64,4 +64,8 @@ def login () :
             return "Sorry, your login details didn't work"
     return render_template("login.html")
 
+@app.route("/manifest.json")
+def manifest() :
+    return render_template("manifest.json")
+
 app.run(debug=True, host='0.0.0.0')
