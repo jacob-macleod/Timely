@@ -60,6 +60,8 @@ def decrypt(string) :
     
 
 def change_value(file, index, key, value) :
+    key = encrypt(key)
+    value = encrypt(value)
     with open(file, 'r') as json_file :
         data_r = json.load(json_file)
         data_r[index][key] = value
@@ -72,7 +74,7 @@ def read_value(file, index, key) :
     with open(file) as json_file :
         login_data = json.load(json_file)
 
-    return login_data[index][key]
+    return decrypt(login_data[index][key])
 
 def delete_line(file, line_number) :
     i = 0
@@ -104,6 +106,8 @@ def lines_in_file(file):
 
 
 def append_value(file, value1, value2) :
+    value1 = encrypt(value1)
+    value2 = encrypt(value2)
     #Delete last two lines
     lines = lines_in_file(file)
     delete_line(file, lines-1)
@@ -118,3 +122,4 @@ def append_value(file, value1, value2) :
     }
 ]''')
 
+print (encrypt("JaneLovesCats123!"))
