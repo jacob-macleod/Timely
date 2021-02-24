@@ -156,7 +156,18 @@
   <title>Timely</title>
 </head>
 <body>
-<form method="post"> 
+<form method="post">
+    <div id="tags_container">
+        <form action="{{ url_for("index")}}" method="post"> 
+            <input list="tags" id="tag" name="tag" placeholder="Enter a session tag here!" value={{ tag }}>
+            <datalist id="tags">
+                <option value="Work">
+                <option value="Study">
+                <option value="Break">
+            </datalist>-
+        </form>
+    </div>
+
     <div class="time_div">
         <span contenteditable="true" id="length_input_hours" class="time">0</span>
         <span class="time">:</span>
@@ -176,6 +187,7 @@
 </div>
 </body>
 <script>
+document.cookie = "tag=%noneValue%";
 inner_time_bar = document.getElementById("inner_time_bar")
 
 timer_running = false
@@ -198,11 +210,6 @@ function get_cookie(cname) {
 
 if ("{{ user }}" != "%noneValue%") {
     document.cookie = "user_status={{ user }}";
-    document.getElementById("login_status").innerHTML= "{{ user }}"
-} else {
-    if (get_cookie("user_status") != "%noneValue%") {
-        document.getElementById("login_status").innerHTML = get_cookie("user_status")
-    }
 }
 
 timer = document.getElementById("time")
@@ -261,6 +268,8 @@ function start_timer () {
                         document.getElementById("length_input_hours").contentEditable = true
                         document.getElementById("length_input_mins").contentEditable = true
                         document.getElementById("seconds").contentEditable = true
+
+                        document.cookie = "tag=" + document.getElementById("tag").value
 
                         timer_running = false
                         document.getElementById("play_icon").src = "{{url_for('static', filename='play_icon2.png')}}"

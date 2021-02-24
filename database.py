@@ -1,4 +1,5 @@
 import json
+from datetime import *
 
 
 #TODO: Change before deployment
@@ -19,7 +20,7 @@ def encrypt(string) :
         encrypted = 0
         for b in range(0, len(letters)) :
             if string[i] == letters[b] :
-                if b+ENCRYPTION_KEY > len(letters) :
+                if b+ENCRYPTION_KEY >= len(letters) :
                     encryption = encryption + letters[b-ENCRYPTION_KEY]
                 else :
                     encryption = encryption + letters[b+ENCRYPTION_KEY]
@@ -121,5 +122,3 @@ def append_value(file, value1, value2) :
         "password": "''' + value2 + '''"
     }
 ]''')
-
-print (encrypt("JaneLovesCats123!"))

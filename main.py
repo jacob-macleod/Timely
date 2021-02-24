@@ -1,14 +1,26 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, make_response
 from database import *
+import datetime
 
 app = Flask(__name__)
 user_status = "%noneValue%"
 username="%noneValue%"
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
     user_status = username
-    return render_template("index.html", user=user_status)
+    #If the last time the page was loaded a timer was finished then get the timer tag
+    if request.cookies.get("username") is None :
+        append_value("analytics_data.json", "Not logged in", request.cookies.get("tag") + "%" + str(datetime.datetime.now()))
+    else :
+        append_value("analytics_data.json", request.cookies.get("username"), request.cookies.get("tag")+ + str(date.today()) + "%" + str(datetime.now().strftime("%H:%M:%S")))
+
+ 
+    #When user enters a tag
+    if request.method == "POST": 
+        tag = request.form.get("tag")  
+        return render_template("index.html", user=user_status, tag=tag)
+    return render_template("index.html", user=user_status, tag="")
 
 @app.route("/create_account", methods=["GET", "POST"])
 def create_account() :
