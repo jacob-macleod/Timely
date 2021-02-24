@@ -209,7 +209,7 @@
         width: 1vh;
         height: 18px;
 
-        background: linear-gradient(270deg, #6D7CFF 100%, rgba(38, 39, 49, 0.56) 100%);
+        background: linear-gradient(270deg, #6D7CFF 30.41%, #F36DF6 99.99%);
         box-shadow: -1px 1px 2px rgba(98, 112, 230, 0.2), 1px -1px 2px rgba(98, 112, 230, 0.2), -1px -1px 2px rgba(120, 136, 255, 0.9), 1px 1px 3px rgba(98, 112, 230, 0.9), inset 1px 1px 2px rgba(120, 136, 255, 0.3), inset -1px -1px 2px rgba(98, 112, 230, 0.5);
         border-radius: 8px;
     }
@@ -258,7 +258,7 @@
 </form>
 <div class="bottom_panel">
     <img src="{{url_for('static', filename='user-6-line.png')}}" id="user_icon" class="user_icon" onclick="window.open('http://localhost:5000/account', '_self')">
-    <img src="{{url_for('static', filename='play_icon2.png')}}" id="play_icon" class="play_icon" onclick="start_timer()">
+    <img src="{{url_for('static', filename='play_icon.png')}}" id="play_icon" class="play_icon" onclick="start_timer()">
     <img src="{{url_for('static', filename='Analytics.png')}}" id="analytics_icon" class="analytics_icon" onclick="window.open('http://localhost:5000/analytics', '_self')">
 </div>
 </body>
@@ -302,7 +302,7 @@ function convert_to_hms (seconds) {
 
 
 function start_timer () {
-    document.getElementById("play_icon").src = "{{url_for('static', filename='pause.png')}}"
+    document.getElementById("play_icon").src = "{{url_for('static', filename='pause2.png')}}"
     if (timer_running == false) {
         timer_running = true
         //Get hours and seconds
@@ -356,7 +356,7 @@ function start_timer () {
                         //Update title
                         document.getElementById("title").innerHTML = "Timely - Time Up!"
                         timer_running = false
-                        document.getElementById("play_icon").src = "{{url_for('static', filename='play_icon2.png')}}"
+                        document.getElementById("play_icon").src = "{{url_for('static', filename='play_icon.png')}}"
                         var audio = new Audio('https://opengameart.org/sites/default/files/audio_preview/montageAudio-20120704%40194334.mp3.ogg');
                         audio.play();
                     }
