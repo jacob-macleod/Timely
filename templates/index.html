@@ -303,6 +303,7 @@ function convert_to_hms (seconds) {
 
 
 function start_timer () {
+    var b = 3
     document.getElementById("play_icon").src = "{{url_for('static', filename='pause2.png')}}"
     if (timer_running == false) {
         timer_running = true
@@ -335,11 +336,17 @@ function start_timer () {
                     var time_left_arr = (time_left.split("%"));
                     document.getElementById("length_input_hours").innerHTML = time_left_arr[0]
                     document.getElementById("length_input_mins").innerHTML = time_left_arr[1]
-                    document.getElementById("seconds").innerHTML = "0" + time_left_arr[2]
+                    if (Number(time_left_arr[2]) < 10) {
+                        document.getElementById("seconds").innerHTML = "0" + time_left_arr[2]
+                        //Update title
+                        document.getElementById("title").innerHTML = "Timely - " + time_left_arr[0] + ":" + time_left_arr[1] + ":0" + time_left_arr[2] + " left"
+                    } else {
+                        document.getElementById("seconds").innerHTML = time_left_arr[2]
+                        //Update title
+                        document.getElementById("title").innerHTML = "Timely - " + time_left_arr[0] + ":" + time_left_arr[1] + ":" + time_left_arr[2] + " left"
+                    }
                     
-                    //Update title
-                    document.getElementById("title").innerHTML = "Timely - " + time_left_arr[0] + ":" + time_left_arr[1] + ":" + time_left_arr[2] + " left"
-
+        
                     //Make input spans uneditable so users don't mess the timer up
                     document.getElementById("length_input_hours").contentEditable = false
                     document.getElementById("length_input_mins").contentEditable = false
@@ -351,8 +358,8 @@ function start_timer () {
                         document.getElementById("length_input_mins").contentEditable = true
                         document.getElementById("seconds").contentEditable = true
 
-                        //Tell the server a timer has been done and give it the tag used
-                        document.cookie = "tag=" + document.getElementById("tag").value
+                        //Tell the server a timer has been done and give it the tag used as well as the time spent
+                        document.cookie = "tag=" + document.getElementById("tag").value + "%" + total_seconds.toString() + "%"
                         document.cookie = "timer_status=true";
 
                         //Update title
@@ -361,8 +368,10 @@ function start_timer () {
                         document.getElementById("play_icon").src = "{{url_for('static', filename='play_icon.png')}}"
                         var audio = new Audio('https://opengameart.org/sites/default/files/audio_preview/montageAudio-20120704%40194334.mp3.ogg');
                         audio.play();
-        
-                        window.open('http://localhost:5000/','_self')
+                        
+                        setTimeout( () =>{
+                            window.open('http://localhost:5000/','_self')
+                        }, b*1000)
                     }
                 }, i * 1000)
             }
