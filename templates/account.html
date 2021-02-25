@@ -16,29 +16,28 @@
 <button onclick="window.open('http://localhost:5000/login','_self')">Login</button>
 </body>
 <script>
-function get_cookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-        c = c.substring(1);
+    function get_cookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = document.cookie;
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
         }
-        if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-        }
+        return "";
     }
-    return "";
-}
 
-if ("{{ user }}" != "%noneValue%") {
-    document.cookie = "user_status={{ user }}";
-    document.getElementById("login_status").innerHTML= "{{ user }}"
-} else {
-    if (get_cookie("user_status") != "%noneValue%") {
+    if (get_cookie("user_status") != "") {
         document.getElementById("login_status").innerHTML = get_cookie("user_status")
+    } else {
+        document.getElementById("login_status").innerHTML = "Not logged in!"
     }
-}
+
+
 </script>
 </html>

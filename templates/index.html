@@ -249,7 +249,7 @@
         <span class="time">:</span>
         <span contenteditable="true" id="length_input_mins" class="time">0</span>
         <span class="time">:</span>
-        <span id="seconds" class="time" contenteditable="true">0</span>
+        <span id="seconds" class="time" contenteditable="true">00</span>
     </div>
     <div class="time_bars">
         <div class="outer_time_bar"></div>
@@ -264,6 +264,7 @@
 </body>
 <script>
 document.cookie = "tag=%noneValue%";
+document.cookie = "timer_status=false";
 inner_time_bar = document.getElementById("inner_time_bar")
 
 timer_running = false
@@ -334,7 +335,7 @@ function start_timer () {
                     var time_left_arr = (time_left.split("%"));
                     document.getElementById("length_input_hours").innerHTML = time_left_arr[0]
                     document.getElementById("length_input_mins").innerHTML = time_left_arr[1]
-                    document.getElementById("seconds").innerHTML = time_left_arr[2]
+                    document.getElementById("seconds").innerHTML = "0" + time_left_arr[2]
                     
                     //Update title
                     document.getElementById("title").innerHTML = "Timely - " + time_left_arr[0] + ":" + time_left_arr[1] + ":" + time_left_arr[2] + " left"
@@ -352,6 +353,7 @@ function start_timer () {
 
                         //Tell the server a timer has been done and give it the tag used
                         document.cookie = "tag=" + document.getElementById("tag").value
+                        document.cookie = "timer_status=true";
 
                         //Update title
                         document.getElementById("title").innerHTML = "Timely - Time Up!"
@@ -359,6 +361,8 @@ function start_timer () {
                         document.getElementById("play_icon").src = "{{url_for('static', filename='play_icon.png')}}"
                         var audio = new Audio('https://opengameart.org/sites/default/files/audio_preview/montageAudio-20120704%40194334.mp3.ogg');
                         audio.play();
+        
+                        window.open('http://localhost:5000/','_self')
                     }
                 }, i * 1000)
             }
