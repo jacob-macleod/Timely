@@ -46,7 +46,17 @@ def create_account() :
 
 @app.route("/account", methods=["GET", "POST"])
 def account () :
-    return render_template("account.html", user=username)
+    password = ""
+    i = 0
+    #Search for username in login_data.json and get the equivilant password
+    for line in open("login_data.json"):
+            try :
+                if read_value("login_data.json", i, "username") == request.cookies.get("user_status") :
+                    password = read_value("login_data.json", i, "password")
+            except :
+                pass
+            i = i + 1  
+    return render_template("account.html", user=username, password_length=len(password))
 
 
 @app.route("/login", methods=["GET", "POST"])
