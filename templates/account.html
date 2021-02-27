@@ -11,47 +11,111 @@
                 background: #292A2E;
             }
 
-            .back_button {
-                cursor: pointer;
-                width: 50vh;
-                padding-left: 10vh;
+            @media screen and (min-width: 772px) {
+                .back_button {
+                    cursor: pointer;
+                    width: 50vh;
+                    padding-left: 10vh;
+                }
+
+                .user_icon {
+                    width: 5vh;
+                    float: left;
+                    padding-left: 10vh;
+                }
+
+                .username {
+                    float: left;
+                    padding-bottom: 50px;
+                    padding-left: 5px;
+
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 24px;
+                    line-height: 28px;
+                    color: #d5e1e4;
+                }
+
+                .box_1 {
+                    position: relative;
+                    width: 80vh;
+                    left: 10vh;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+
+                    background: #444343;
+                    box-shadow: -5px 5px 10px rgba(61, 60, 60, 0.2), 5px -5px 10px rgba(61, 60, 60, 0.2), -5px -5px 10px rgba(75, 74, 74, 0.9), 5px 5px 13px rgba(61, 60, 60, 0.9), inset 1px 1px 2px rgba(75, 74, 74, 0.3), inset -1px -1px 2px rgba(61, 60, 60, 0.5);
+                    border-radius: 4px;
+                }
+
+
+                .box_2 {
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    position: relative;
+                    width: 80vh;
+                    left: 10vh;
+
+                    background: #444343;
+                    box-shadow: -5px 5px 10px rgba(61, 60, 60, 0.2), 5px -5px 10px rgba(61, 60, 60, 0.2), -5px -5px 10px rgba(75, 74, 74, 0.9), 5px 5px 13px rgba(61, 60, 60, 0.9), inset 1px 1px 2px rgba(75, 74, 74, 0.3), inset -1px -1px 2px rgba(61, 60, 60, 0.5);
+                    border-radius: 4px;
+                }
             }
 
-            .user_icon {
-                width: 5vh;
-                float: left;
-                padding-left: 10vh;
+
+            @media screen and (max-width: 770px) {
+                .back_button {
+                    cursor: pointer;
+                    width: 50vh;
+                }
+
+                .user_icon {
+                    width: 5vh;
+                    float: left;
+                }
+
+                .username {
+                    float: left;
+                    padding-bottom: 50px;
+
+                    font-family: Roboto;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 24px;
+                    line-height: 28px;
+                    color: #d5e1e4;
+                }
+
+                .box_1 {
+                    position: relative;
+                    width: 40vh;
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+
+                    background: #444343;
+                    box-shadow: -5px 5px 10px rgba(61, 60, 60, 0.2), 5px -5px 10px rgba(61, 60, 60, 0.2), -5px -5px 10px rgba(75, 74, 74, 0.9), 5px 5px 13px rgba(61, 60, 60, 0.9), inset 1px 1px 2px rgba(75, 74, 74, 0.3), inset -1px -1px 2px rgba(61, 60, 60, 0.5);
+                    border-radius: 4px;
+                }
+
+
+                .box_2 {
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    position: relative;
+                    width: 40vh;
+
+                    background: #444343;
+                    box-shadow: -5px 5px 10px rgba(61, 60, 60, 0.2), 5px -5px 10px rgba(61, 60, 60, 0.2), -5px -5px 10px rgba(75, 74, 74, 0.9), 5px 5px 13px rgba(61, 60, 60, 0.9), inset 1px 1px 2px rgba(75, 74, 74, 0.3), inset -1px -1px 2px rgba(61, 60, 60, 0.5);
+                    border-radius: 4px;
+                }
             }
 
-            .username {
-                float: left;
-                padding-bottom: 50px;
-                padding-left: 5px;
-
-                font-family: Roboto;
-                font-style: normal;
-                font-weight: normal;
-                font-size: 24px;
-                line-height: 28px;
-                color: #d5e1e4;
-            }
-
-            .box_1 {
-                position: relative;
-                width: 80vh;
-                left: 10vh;
-                padding-top: 3px;
-                padding-bottom: 3px;
-
-                background: #444343;
-                box-shadow: -5px 5px 10px rgba(61, 60, 60, 0.2), 5px -5px 10px rgba(61, 60, 60, 0.2), -5px -5px 10px rgba(75, 74, 74, 0.9), 5px 5px 13px rgba(61, 60, 60, 0.9), inset 1px 1px 2px rgba(75, 74, 74, 0.3), inset -1px -1px 2px rgba(61, 60, 60, 0.5);
-                border-radius: 4px;
-            }
 
             .username_label {
                 position: relative;
                 left: 10px;
-                
+
                 font-family: Roboto;
                 font-style: normal;
                 font-weight: normal;
@@ -100,19 +164,9 @@
                 color: #E8F5F8;
             }
 
-            .box_2 {
-                padding-top: 10px;
-                padding-bottom: 10px;
-                position: relative;
-                width: 80vh;
-                left: 10vh;
-
-                background: #444343;
-                box-shadow: -5px 5px 10px rgba(61, 60, 60, 0.2), 5px -5px 10px rgba(61, 60, 60, 0.2), -5px -5px 10px rgba(75, 74, 74, 0.9), 5px 5px 13px rgba(61, 60, 60, 0.9), inset 1px 1px 2px rgba(75, 74, 74, 0.3), inset -1px -1px 2px rgba(61, 60, 60, 0.5);
-                border-radius: 4px;
-            }
 
             .account_button {
+                cursor: pointer;
                 position: relative;
                 left: 10px;
 
