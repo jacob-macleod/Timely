@@ -15,16 +15,24 @@
         grid-template-columns: auto auto;
       }
 
-      .productivity_image {
-        position: relative;
-        left: 20vh;
-        width: 70vh;
+      @media screen and (min-width: 896px) {
+        .productivity_image {
+          position: relative;
+          left: 20vh;
+          width: 70vh;
+        }
+      }
+
+
+      @media screen and (max-width: 895px) {
+        .productivity_image {
+          display: none;
+        }
       }
 
       .container {
         position: relative;
         width: 90%;
-        height: 58vh;
         left: 5vh;
         top: 3vh;
 
@@ -75,7 +83,7 @@
 
       .input {
         position: relative;
-        left: git 4px;
+        left: 4px;
         top: 3px;
 
         background: #545454;
@@ -102,6 +110,7 @@
       }
 
       .go {
+        cursor: pointer;
         left: 20px;
         position: relative;
         font-family: Roboto;
