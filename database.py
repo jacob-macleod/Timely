@@ -162,7 +162,3 @@ def get_tags_today(file, username) :
         else :
             pass
     return tags_today
-
-
-print (get_study_length_today("analytics_data.json", "Jacob"))
-print (get_tags_today("analytics_data.json", "Jacob"))
