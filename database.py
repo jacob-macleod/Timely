@@ -122,3 +122,47 @@ def append_value(file, value1, value2) :
         "password": "''' + value2 + '''"
     }
 ]''')
+
+
+#I could have combined both arrays below into one but then when they are called it would be difficuly to know what each parameter does so I decided not to for the 
+#Sake of simplicity and ease of use for other programmers
+def get_study_length_today(file, username) :
+    length_today = []
+
+    #Get length of file
+    with open(file) as json_file :
+        length = len(json.load(json_file))
+
+    for i in range(0, length) :
+        if read_value(file, i, "username") == username: 
+            if read_value(file, i, "password").split("%")[2] == str(date.today()):
+                length = read_value(file, i, "password").split("%")[1]
+                length_today.append(length)
+        else :
+            pass
+    return length_today
+
+        
+def get_tags_today(file, username) :
+    tags_today = []
+
+    #Get length of file
+    with open(file) as json_file :
+        length = len(json.load(json_file))
+
+    #For each item in file, if the usename is correct save the tag to tags_today
+    for i in range(0, length) :
+        if read_value(file, i, "username") == username: 
+            if read_value(file, i, "password").split("%")[2] == str(date.today()):
+                tag = read_value(file, i, "password").split("%")[0]
+                if tag == "" :
+                    tags_today.append("No tags") 
+                else :
+                    tags_today.append(tag)
+        else :
+            pass
+    return tags_today
+
+
+print (get_study_length_today("analytics_data.json", "Jacob"))
+print (get_tags_today("analytics_data.json", "Jacob"))

@@ -86,6 +86,13 @@ def login () :
             return render_template("login_failed.html")
     return render_template("login.html")
 
+
+@app.route("/analytics")
+def analytics() :
+    username = request.cookies.get("user_status")
+    return render_template("analytics.html", study_length_today=get_study_length_today("analytics_data.json", username), tags_today=get_tags_today("analytics_data.json", username))
+
+
 @app.route("/manifest.json")
 def manifest() :
     return render_template("manifest.json")
