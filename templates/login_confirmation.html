@@ -4,12 +4,48 @@
   <meta charset="utf-8">
   <meta name="viewport"
      content="width=device-width, initial-scale=1, user-scalable=yes">
+  <style>
+          body {
+        background-color: #292A2E;
+      }
+
+      .message {
+        position: relative;
+        left: 20px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 36px;
+        line-height: 42px;
+
+        color: #E8F5F8;
+      }
+
+      .button {
+        cursor: pointer;
+          left: 20px;
+          position: relative;
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 21px;
+
+          color: #E8F5F8;
+
+          background: linear-gradient(92.68deg, #6D7CFF 6.77%, #F36DF6 83.08%);
+          box-shadow: -2px 2px 4px rgba(158, 104, 226, 0.2), 2px -2px 4px rgba(158, 104, 226, 0.2), -2px -2px 4px rgba(194, 128, 255, 0.9), 2px 2px 5px rgba(158, 104, 226, 0.9), inset 1px 1px 2px rgba(194, 128, 255, 0.3), inset -1px -1px 2px rgba(158, 104, 226, 0.5);
+          border-radius: 8px;
+          border: none;
+      }
+  </style>
  
   <title>Timely</title>
 </head>
 <body>
-    <h1>Login Successful</h1>
-    <button onclick="window.open('http://localhost:5000/','_self')">Go back</button>        
+    <p class="message">Login Successful</p>
+    <button class="button" onclick="window.open('http://localhost:5000/','_self')">Go back</button>        
  
 </body>
 <script>

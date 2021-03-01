@@ -40,7 +40,7 @@ def create_account() :
             return render_template("account_confirmation.html", user=username)
         else :
             username = old_username
-            return "Try again! Your password and username don't match!"
+            return render_template("account_creation_failed.html")
     return render_template("create_account.html", user=user_status)
 
 
@@ -83,7 +83,7 @@ def login () :
         #If the user's password/username is wrong
         if (logged_in == False) :
             username = old_username
-            return "Sorry, your login details didn't work"
+            return render_template("login_failed.html")
     return render_template("login.html")
 
 @app.route("/manifest.json")
