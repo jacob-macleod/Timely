@@ -259,7 +259,7 @@
 <div class="bottom_panel">
     <img src="{{url_for('static', filename='user-6-line.png')}}" id="user_icon" class="user_icon" onclick="window.open('http://localhost:5000/account', '_self')">
     <img src="{{url_for('static', filename='play_icon.png')}}" id="play_icon" class="play_icon" onclick="start_timer()">
-    <img src="{{url_for('static', filename='Analytics.png')}}" id="analytics_icon" class="analytics_icon" onclick="window.open('http://localhost:5000/analytics', '_self')">
+    <img src="{{url_for('static', filename='Analytics.png')}}" id="analytics_icon" class="analytics_icon" onclick="open_analytics_page()">
 </div>
 </body>
 <script>
@@ -270,19 +270,28 @@ inner_time_bar = document.getElementById("inner_time_bar")
 timer_running = false
 
 function get_cookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-        c = c.substring(1);
+        var name = cname + "=";
+        var decodedCookie = document.cookie;
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+            }
         }
-        if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-        }
+        return "";
     }
-    return "";
+
+
+function open_analytics_page () {
+    if (get_cookie("user_status") != "") {
+        window.open('http://localhost:5000/analytics', '_self')
+    } else {
+        alert ("You need to be logged in to view analytics")
+    }
 }
 
 if ("{{ user }}" != "%noneValue%") {

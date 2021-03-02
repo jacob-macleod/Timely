@@ -90,8 +90,10 @@ def login () :
 @app.route("/analytics")
 def analytics() :
     username = request.cookies.get("user_status")
-    return render_template("analytics.html", study_length_today=get_study_length_today("analytics_data.json", username), tags_today=get_tags_today("analytics_data.json", username), time_today=get_study_time_today("analytics_data.json", username), total_time=get_total_time_spent_today("analytics_data.json", username), longest_studied_time=get_most_productive_hour("analytics_data.json", username))
-
+    try :
+        return render_template("analytics.html", study_length_today=get_study_length_today("analytics_data.json", username), tags_today=get_tags_today("analytics_data.json", username), time_today=get_study_time_today("analytics_data.json", username), total_time=get_total_time_spent_today("analytics_data.json", username), longest_studied_time=get_most_productive_hour("analytics_data.json", username))
+    except:
+        return "You haven't spent any time focusing today!"
 
 @app.route("/manifest.json")
 def manifest() :
