@@ -29,7 +29,7 @@ If you want to use Timely as a PWA, please replace all references to `http://loc
 ## Compatibility 
 Timely is compatible with all operating systems, including mobile as a PWA, except IOS. This is because IOS Safari introduces limitations with audio that make this app impossible to use - the timer makes no sound.
 
-To find out how to install progressive web apps on Android, please refer to this [link] (https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid&hl=en)
+To find out how to install progressive web apps on Android, please refer to this [link](https://support.google.com/chrome/answer/9658361?co=GENIE.Platform%3DAndroid&hl=en)
 
 
 ## Installation
@@ -45,4 +45,4 @@ You can then navigate to http://localhost:5000/.
 
 
 ## Contact and Bug Reports
-If you have any questions or are experiencing a bug, please open an issue [here] (https://github.com/jacob-macleod/Timely/issues) 
+If you have any questions or are experiencing a bug, please open an issue [here](https://github.com/jacob-macleod/Timely/issues) 
