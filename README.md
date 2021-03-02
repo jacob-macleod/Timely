@@ -43,6 +43,5 @@ You can then navigate to http://localhost:5000/.
 
 *This is not the reccomended option, but it is necessary for active development*
 
-
 ## Contact and Bug Reports
 If you have any questions or are experiencing a bug, please open an issue [here](https://github.com/jacob-macleod/Timely/issues).
