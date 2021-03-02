@@ -47,7 +47,7 @@ def decrypt(string) :
             if string[i] == letters[b] :
                 if b+ENCRYPTION_KEY > len(letters) :
                     decryption = decryption + letters[b-ENCRYPTION_KEY]
-                elif b+ENCRYPTION_KEY*2 > len(letters) :
+                elif b+ENCRYPTION_KEY*2 >= len(letters) :
                     decryption = decryption + letters[b+ENCRYPTION_KEY]
                 else :
                     decryption = decryption + letters[b-ENCRYPTION_KEY]
@@ -137,11 +137,45 @@ def get_study_length_today(file, username) :
         if read_value(file, i, "username") == username: 
             if read_value(file, i, "password").split("%")[2] == str(date.today()):
                 length = read_value(file, i, "password").split("%")[1]
+                try :
+                    length_today.append(int(length)/60)
+                except:
+                    length_today.append(length + " seconds")
+        else :
+            pass
+    return length_today
+
+def get_study_date_today(file, username) :
+    length_today = []
+
+    #Get length of file
+    with open(file) as json_file :
+        length = len(json.load(json_file))
+
+    for i in range(0, length) :
+        if read_value(file, i, "username") == username: 
+            if read_value(file, i, "password").split("%")[2] == str(date.today()):
+                length = read_value(file, i, "password").split("%")[2]
                 length_today.append(length)
         else :
             pass
     return length_today
 
+def get_study_time_today(file, username) :
+    length_today = []
+
+    #Get length of file
+    with open(file) as json_file :
+        length = len(json.load(json_file))
+
+    for i in range(0, length) :
+        if read_value(file, i, "username") == username: 
+            if read_value(file, i, "password").split("%")[2] == str(date.today()):
+                length = read_value(file, i, "password").split("%")[3]
+                length_today.append(length)
+        else :
+            pass
+    return length_today
         
 def get_tags_today(file, username) :
     tags_today = []
@@ -162,3 +196,29 @@ def get_tags_today(file, username) :
         else :
             pass
     return tags_today
+
+
+def get_total_time_spent_today (file, username) :
+    #Get the array of all the time spent focusing today
+    minutes_arr = get_study_length_today(file, username)
+    minutes_string = 0  
+
+    #Convert minutes_arr to string
+    for i in range(0, len(minutes_arr)) :
+        minutes_string = minutes_string + int(minutes_arr[i])
+    return minutes_string
+
+
+def get_most_productive_hour (file, username) :
+    longest_time = 0
+
+    #Get the array of all the time spent focusing today
+    minutes_arr = get_study_length_today(file, username)
+    #Get the array of all the times focused at today
+    times_arr = get_study_time_today(file, username)
+
+    for i in range(0, len(minutes_arr)) :
+        if minutes_arr[i] > minutes_arr[longest_time] :
+            longest_time = i
+
+    return times_arr[longest_time]

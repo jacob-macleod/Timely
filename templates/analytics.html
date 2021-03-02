@@ -1,1 +1,158 @@
-Hello World
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+     content="width=device-width, initial-scale=1, user-scalable=yes">
+  <style>
+    body {
+        background-color: #292A2E;
+    }
+
+    .caption {
+        position: relative;
+        left: 20px;
+
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 21px;
+
+        color: #8D8D8D;
+    }
+
+    .button {
+        cursor: pointer;
+          left: 20px;
+          position: relative;
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 18px;
+          line-height: 21px;
+
+          color: #E8F5F8;
+
+          background: linear-gradient(92.68deg, #6D7CFF 6.77%, #F36DF6 83.08%);
+          box-shadow: -2px 2px 4px rgba(158, 104, 226, 0.2), 2px -2px 4px rgba(158, 104, 226, 0.2), -2px -2px 4px rgba(194, 128, 255, 0.9), 2px 2px 5px rgba(158, 104, 226, 0.9), inset 1px 1px 2px rgba(194, 128, 255, 0.3), inset -1px -1px 2px rgba(158, 104, 226, 0.5);
+          border-radius: 8px;
+          border: none;
+      }
+  </style>
+ 
+  <title>Timely</title>
+</head>
+<body>   
+    <button class="button" onclick="window.open('http://localhost:5000/','_self')">Go back</button>        
+    <p class="caption">You've spend  {{ total_time }} minutes focusing today</p>
+    <p class="caption">Your most productive time was at {{ longest_studied_time }}</p>
+    <br>
+    <p class="caption">The Tags You've Been Using Today</p>
+    <canvas id="oilChart" width="600" height="400"></canvas></body>
+
+    <p class="caption">The Minutes You've Spent Today</p>
+    <canvas style="text-align: center" id="session_length_bar" width="2" height="1"></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script>
+colors = [
+                "#efbb66",
+                "#e56378",
+                "#49a4ea",
+                "#8cce9e",
+                "#8473fc",
+                "#f8728b",
+                "#B48EAD",
+                "#efbb66",
+                "#e56378",
+                "#49a4ea",
+                "#8cce9e",
+                "#8473fc",
+                "#f8728b",
+                "#B48EAD",
+                "#efbb66",
+                "#e56378",
+                "#49a4ea",
+                "#8cce9e",
+                "#8473fc",
+                "#f8728b",
+                "#B48EAD",
+                "#8FBCBB"
+            ]
+//Make the pie chart
+var oilCanvas = document.getElementById("oilChart");
+
+Chart.defaults.global.defaultFontFamily = "Lato";
+Chart.defaults.global.defaultFontSize = 18;
+
+//Convert tags_today to numerical values
+tags = {{ tags_today|tojson }}
+tags_used = []
+numerical_tags = []
+for (i=0;i<tags.length;i++) {
+    match_found = false
+    //Find if the tag is unique
+    for (b=0;b<tags_used.length;b++) {
+        if (tags[i] == tags_used[b]) {
+            numerical_tags[b] ++
+            match_found = true
+        }
+    }
+        //If tag is unique
+        if (match_found == false) {
+            numerical_tags.push(1)
+            tags_used.push(tags[i])
+        }
+    }
+
+
+var oilData = {
+    labels: tags_used,
+    datasets: [
+        {
+            data: numerical_tags,
+            backgroundColor: colors
+        }]
+};
+
+var pieChart = new Chart(oilCanvas, {
+  type: 'pie',
+  data: oilData
+});
+
+//Make the bar chart
+var ctx = document.getElementById('session_length_bar').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: {{ time_today|tojson }},
+        datasets: [{
+            label: ' Minutes',
+            data: {{ study_length_today|tojson }},
+            backgroundColor: colors,
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+
+
+
+</script>
+</html>
