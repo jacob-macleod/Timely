@@ -257,7 +257,7 @@
     </div>
 </form>
 <div class="bottom_panel">
-    <img src="{{url_for('static', filename='user-6-line.png')}}" id="user_icon" class="user_icon" onclick="window.open('http://localhost:5000/account', '_self')">
+    <img src="{{url_for('static', filename='user-6-line.png')}}" id="user_icon" class="user_icon" onclick="window.open('/account', '_self')">
     <img src="{{url_for('static', filename='play_icon.png')}}" id="play_icon" class="play_icon" onclick="start_timer()">
     <img src="{{url_for('static', filename='Analytics.png')}}" id="analytics_icon" class="analytics_icon" onclick="open_analytics_page()">
 </div>
@@ -288,7 +288,7 @@ function get_cookie(cname) {
 
 function open_analytics_page () {
     if (get_cookie("user_status") != "") {
-        window.open('http://localhost:5000/analytics', '_self')
+        window.open('/analytics', '_self')
     } else {
         alert ("You need to be logged in to view analytics")
     }
@@ -379,14 +379,14 @@ function start_timer () {
                         audio.play();
                         
                         setTimeout( () =>{
-                            window.open('http://localhost:5000/','_self')
+                            window.open('/','_self')
                         }, b*1000)
                     }
                 }, i * 1000)
             }
         }
     } else {
-        window.open('http://localhost:5000/','_self')
+        window.open('/','_self')
     }
 }
 
